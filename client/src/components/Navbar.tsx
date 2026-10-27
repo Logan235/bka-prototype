@@ -49,48 +49,48 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-red-950 via-red-800 to-blue-950 text-white text-xs py-1.5 px-3 sm:px-4 shadow-sm border-b border-red-700/40">
+      {/* Top Announcement Bar - Soft pastel style */}
+      <div className="bg-slate-900/90 backdrop-blur-sm text-slate-200 text-xs py-1.5 px-3 sm:px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="badge bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 border-none shadow-sm shrink-0">
+            <span className="bg-amber-400/20 text-amber-300 font-extrabold text-[10px] px-2 py-0.5 rounded-full border border-amber-400/30 shrink-0">
               BKA.AI
             </span>
-            <span className="truncate text-[11px] sm:text-xs text-red-100 font-medium">
+            <span className="truncate text-[11px] sm:text-xs text-slate-300 font-medium">
               Trường Đại học Bách Khoa - ĐHQG TP.HCM • Cơ sở 1: 268 Lý Thường Kiệt, P. Diên Hồng
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-3 text-[11px] text-blue-200 shrink-0">
-            <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
+          <div className="hidden md:flex items-center gap-3 text-[11px] text-slate-400 shrink-0">
+            <span className="flex items-center gap-1 hover:text-slate-200 transition-colors cursor-pointer">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               Hệ thống vận hành 24/7
             </span>
             <span>•</span>
-            <a href="tel:02838651670" className="hover:text-white transition-colors">Hotline: (028) 3865 1670</a>
+            <a href="tel:02838651670" className="hover:text-slate-200 transition-colors">Hotline: (028) 3865 1670</a>
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
-      <header className="sticky top-0 z-40 bg-[#003366]/95 backdrop-blur-md text-white shadow-md border-b border-white/10 transition-all">
+      {/* Main Header - Clean Glassmorphism Light Theme (Samsung UI Minimalist) */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md text-slate-900 shadow-xs border-b border-slate-200 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 sm:h-20">
             {/* Logo & Brand */}
             <div className="flex items-center space-x-3">
               <Link to="/" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 flex items-center justify-center font-black text-lg sm:text-xl text-white shadow-lg shadow-orange-950/40 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-[#003366] flex items-center justify-center font-black text-lg sm:text-xl text-white shadow-md group-hover:scale-105 transition-transform">
                   BKA
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-amber-400 transition-colors">
-                      BKA<span className="text-amber-400">.ai</span>
+                    <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 group-hover:text-[#003366] transition-colors">
+                      BKA<span className="text-amber-600">.ai</span>
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-bold border border-amber-400/30 flex items-center gap-1">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold border border-amber-200 flex items-center gap-1">
                       <Sparkles className="w-2.5 h-2.5" /> MVP 2026
                     </span>
                   </div>
-                  <p className="text-[10px] sm:text-[11px] text-blue-200 hidden sm:block tracking-wide font-normal">
+                  <p className="text-[10px] sm:text-[11px] text-slate-600 hidden sm:block tracking-wide font-semibold">
                     Trường ĐH Bách Khoa - ĐHQG TP.HCM (268 Lý Thường Kiệt)
                   </p>
                 </div>
@@ -108,21 +108,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
                     to={link.path}
                     className={`relative px-3.5 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1.5 ${
                       active
-                        ? 'bg-white/15 text-white shadow-inner'
-                        : 'text-blue-100 hover:text-white hover:bg-white/10'
+                        ? 'bg-slate-100 text-[#003366] shadow-2xs font-bold'
+                        : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${active ? 'text-amber-400' : 'text-blue-200'}`} />
+                    <Icon className={`w-4 h-4 ${active ? 'text-[#003366]' : 'text-slate-500'}`} />
                     <span>{link.name}</span>
                     {link.badge && (
                       <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ml-1 ${
-                        active ? 'bg-amber-400 text-slate-900' : 'bg-white/20 text-white'
+                        active ? 'bg-amber-100 text-amber-900' : 'bg-slate-200 text-slate-800'
                       }`}>
                         {link.badge}
                       </span>
                     )}
                     {active && (
-                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-amber-400 rounded-full"></span>
+                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#003366] rounded-full"></span>
                     )}
                   </Link>
                 );
@@ -135,40 +135,40 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
               <div className="relative">
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className="btn btn-ghost btn-sm btn-square text-white hover:bg-white/15 relative rounded-xl"
+                  className="btn btn-ghost btn-sm btn-square text-slate-700 hover:bg-slate-100 hover:text-slate-900 relative rounded-xl"
                   title="Thông báo mới"
                 >
                   <Bell className="w-4 h-4" />
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
                 </button>
 
                 {showNotifications && (
                   <div 
-                    className="absolute right-0 mt-2 w-80 sm:w-96 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in zoom-in-95 duration-150"
+                    className="absolute right-0 mt-2 w-80 sm:w-96 bg-white text-slate-800 rounded-2xl shadow-xl border border-slate-200 p-3 z-50 animate-in fade-in zoom-in-95 duration-150"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center justify-between pb-2 border-b border-slate-100 px-2">
                       <span className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
-                        <Bell className="w-4 h-4 text-[#003366]" /> Thông báo BKA (MVP)
+                        <Bell className="w-4 h-4 text-[#003366]" /> Thông báo BKA
                       </span>
                       <button 
                         onClick={() => setShowNotifications(false)}
-                        className="text-xs text-slate-400 hover:text-slate-600"
+                        className="text-xs text-slate-500 hover:text-slate-900 font-semibold"
                       >
                         Đóng
                       </button>
                     </div>
-                    <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+                    <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto mt-1">
                       {notifications.map((n) => (
                         <div key={n.id} className="py-2.5 px-2 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer">
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
-                              {n.hot && <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>}
+                              {n.hot && <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>}
                               {n.title}
                             </span>
                             <span className="text-[10px] text-slate-400">{n.time}</span>
                           </div>
-                          <p className="text-xs text-slate-500 mt-1 leading-snug">{n.desc}</p>
+                          <p className="text-[11px] text-slate-600 mt-1 leading-snug">{n.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -274,14 +274,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
 
         {/* Mobile Navigation Drawer / Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#002244] border-t border-white/10 px-4 pt-3 pb-6 space-y-4 animate-in slide-in-from-top duration-200">
+          <div className="md:hidden bg-white border-t border-slate-200 px-4 pt-3 pb-6 space-y-4 animate-in slide-in-from-top duration-200 shadow-xl">
             {/* User Info Bar in Mobile Menu */}
-            <div className="bg-white/10 p-3 rounded-2xl flex items-center justify-between">
+            <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <img src={currentUser.avatar} alt={currentUser.name} className="w-8 h-8 rounded-full bg-white shadow-inner" />
+                <img src={currentUser.avatar} alt={currentUser.name} className="w-8 h-8 rounded-full bg-white shadow-xs object-cover" />
                 <div>
-                  <div className="text-xs font-bold text-white">{currentUser.name}</div>
-                  <div className="text-[11px] text-amber-300 font-medium capitalize">Vai trò: {currentRole}</div>
+                  <div className="text-xs font-bold text-slate-900">{currentUser.name}</div>
+                  <div className="text-[11px] text-[#003366] font-semibold capitalize">Vai trò: {currentRole}</div>
                 </div>
               </div>
               <button
@@ -289,8 +289,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
                   onOpenChat();
                   setMobileMenuOpen(false);
                 }}
-                className="btn btn-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold border-none rounded-lg"
+                className="btn btn-xs bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold border-none rounded-xl gap-1 shadow-xs"
               >
+                <Sparkles className="w-3 h-3" />
                 Trợ lý AI
               </button>
             </div>
@@ -305,10 +306,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
                     key={link.path}
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-colors ${
                       active
-                        ? 'bg-amber-500 text-slate-950 font-bold'
-                        : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                        ? 'bg-[#003366] text-white shadow-sm'
+                        : 'text-slate-700 hover:bg-slate-100 hover:text-[#003366]'
                     }`}
                   >
                     <span className="flex items-center gap-2.5">
@@ -317,7 +318,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
                     </span>
                     {link.badge && (
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                        active ? 'bg-slate-950 text-white' : 'bg-white/20 text-blue-100'
+                        active ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-800'
                       }`}>
                         {link.badge}
                       </span>
@@ -328,8 +329,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
             </div>
 
             {/* Role Switcher in Mobile Drawer */}
-            <div className="pt-2 border-t border-white/10 space-y-1.5">
-              <div className="text-[11px] font-bold text-blue-200 px-1 uppercase tracking-wider">
+            <div className="pt-2 border-t border-slate-100 space-y-1.5">
+              <div className="text-[11px] font-bold text-slate-500 px-1 uppercase tracking-wider">
                 Chọn vai trò thử nghiệm:
               </div>
               <div className="grid grid-cols-3 gap-2">
@@ -339,8 +340,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
                     onClick={() => switchRole(role)}
                     className={`py-2 px-2 rounded-xl text-xs font-bold capitalize transition-all border ${
                       currentRole === role
-                        ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-md'
-                        : 'bg-white/10 text-white border-white/15 hover:bg-white/20'
+                        ? 'bg-[#003366] text-white border-[#003366] shadow-sm'
+                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                     }`}
                   >
                     {role}
@@ -354,3 +355,4 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
     </>
   );
 };
+

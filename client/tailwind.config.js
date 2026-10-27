@@ -26,13 +26,17 @@ export default {
       {
         bkaTheme: {
           "primary": "#003366",
-          "secondary": "#f0f4f8",
+          "secondary": "#f8f9fa",
           "accent": "#FF6600",
-          "neutral": "#3d4451",
+          "neutral": "#111111",
           "base-100": "#ffffff",
+          "base-200": "#f8f9fa",
+          "base-300": "#dee2e6",
+          "base-content": "#111111",
         },
       },
       "light",
     ],
   },
 }
+

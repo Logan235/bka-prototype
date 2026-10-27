@@ -7,16 +7,19 @@
   --color-accent: #FF6600;
   --color-accent-focus: #e05a00;
   --color-base-100: #ffffff;
-  --color-neutral: #1f2937;
-  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-base-200: #f8f9fa;
+  --color-base-300: #dee2e6;
+  --color-base-content: #111111;
+  --color-neutral: #111111;
+  --font-sans: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 :root {
   color-scheme: light !important;
   --color-base-100: #ffffff !important;
-  --color-base-200: #f8fafc !important;
-  --color-base-300: #e2e8f0 !important;
-  --color-base-content: #0f172a !important;
+  --color-base-200: #f8f9fa !important;
+  --color-base-300: #dee2e6 !important;
+  --color-base-content: #111111 !important;
 }
 
 html {
@@ -25,15 +28,15 @@ html {
 }
 
 body {
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: #ffffff;
+  color: #111111;
   font-family: var(--font-sans);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Force clean, high-contrast, modern light styling for all form controls */
+/* Force clean, high-contrast, modern minimalist light styling for all form controls */
 input,
 select,
 textarea,
@@ -41,15 +44,16 @@ textarea,
 .select,
 .textarea {
   background-color: #ffffff !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
+  color: #111111 !important;
+  border-color: #ced4da !important;
+  font-family: 'Nunito', sans-serif !important;
 }
 
 input::placeholder,
 textarea::placeholder,
 .input::placeholder,
 .textarea::placeholder {
-  color: #94a3b8 !important;
+  color: #6c757d !important;
   opacity: 1 !important;
 }
 
@@ -62,28 +66,30 @@ textarea:focus,
 .input:focus-within,
 .select:focus-within {
   background-color: #ffffff !important;
-  color: #0f172a !important;
+  color: #111111 !important;
   border-color: #003366 !important;
   outline: 2px solid rgba(0, 51, 102, 0.2) !important;
   outline-offset: 1px !important;
 }
 
-/* Custom modern scrollbar */
+/* Custom minimalist scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8f9fa;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #ced4da;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #adb5bd;
 }
+
+
 

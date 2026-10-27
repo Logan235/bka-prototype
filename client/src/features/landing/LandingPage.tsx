@@ -95,6 +95,7 @@ export const LandingPage: React.FC = () => {
   ];
 
   return (
+
     <div className="space-y-16 sm:space-y-24 pb-20 overflow-hidden">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-[#002244] via-[#003366] to-slate-900 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 shadow-2xl">
