@@ -1,12 +1,21 @@
-{/* Top Announcement Bar */}
-<div className="bg-gradient-to-r from-red-900 via-red-800 to-blue-900 text-white text-xs py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2 shadow-inner">
-  <span className="badge badge-error badge-sm animate-pulse text-[10px] font-bold">HOT 2026</span>
-  <span>Chào mừng kỷ niệm 70 năm thành lập Đại học Bách khoa Hà Nội (1956 - 2027) — Khát vọng vươn tầm quốc tế!</span>
-</div>
-
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../features/auth/authContext';
-import { Shield, UserCheck, UserX, MessageSquare, Bell, Sparkles } from 'lucide-react';
+import { 
+  Shield, 
+  UserCheck, 
+  UserX, 
+  MessageSquare, 
+  Bell, 
+  Sparkles, 
+  Menu, 
+  X, 
+  GraduationCap, 
+  HeartHandshake, 
+  Home, 
+  Check, 
+  ChevronDown 
+} from 'lucide-react';
 
 interface NavbarProps {
   onOpenChat: () => void;
@@ -14,109 +23,334 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenChat }) => {
   const { currentUser, currentRole, switchRole } = useAuth();
+  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const navLinks = [
+    { name: 'Trang chủ', path: '/', icon: Home },
+    { name: 'Quỹ BKA Fund', path: '/fund', icon: HeartHandshake, badge: 'Bảo lãnh vay' },
+    { name: 'Gia sư Bách Khoa', path: '/tutor', icon: GraduationCap, badge: 'Mới' },
+    ...(currentRole === 'admin' ? [
+      { name: 'Quản trị Admin', path: '/admin', icon: Shield, badge: 'Admin' }
+    ] : []),
+  ];
+
+  const notifications = [
+    { id: 1, title: 'Phát động Quỹ BKA Fund', desc: 'Bảo lãnh vay học tập 0% lãi suất & huy động đóng góp cựu sinh viên.', time: '10 phút trước', hot: true },
+    { id: 2, title: 'Tuyển 50 Gia sư Bách Khoa TP.HCM', desc: 'Đăng ký hỗ trợ các em tân sinh viên môn Giải tích & Vật lý tại CS1 Lý Thường Kiệt.', time: '2 giờ trước', hot: false },
+    { id: 3, title: 'Khai trương Trợ lý AI BKA.ai', desc: 'Trực tuyến 24/7 giải đáp quy chế đào tạo OISP, chính quy và thủ tục bảo lãnh vay.', time: '1 ngày trước', hot: false },
+  ];
+
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-primary/95 backdrop-blur-md text-primary-content shadow-lg border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Logo & Brand */}
-        <div className="flex items-center space-x-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-accent to-amber-500 flex items-center justify-center font-extrabold text-xl text-white shadow-md">
-            BKA
+    <>
+      {/* Top Announcement Bar */}
+      <div className="bg-gradient-to-r from-red-950 via-red-800 to-blue-950 text-white text-xs py-1.5 px-3 sm:px-4 shadow-sm border-b border-red-700/40">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="badge bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-0.5 border-none shadow-sm shrink-0">
+              BKA.AI
+            </span>
+            <span className="truncate text-[11px] sm:text-xs text-red-100 font-medium">
+              Trường Đại học Bách Khoa - ĐHQG TP.HCM • Cơ sở 1: 268 Lý Thường Kiệt, P. Diên Hồng
+            </span>
           </div>
-          <div>
-            <a href="/" className="text-xl font-extrabold tracking-tight hover:opacity-90 flex items-center gap-1.5">
-              BKA.ai 
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/20 text-accent font-bold border border-accent/30 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> MVP 2026
-              </span>
-            </a>
-            <p className="text-[11px] text-blue-200 hidden sm:block tracking-wide">Cổng Dịch vụ Số Cộng đồng Bách Khoa (1956 - 2027)</p>
-            {/* Mega Menu / Quick Navigation Sub-bar */}
-            <div className="hidden lg:flex items-center gap-6 px-4 py-1.5 bg-base-200/60 border-t border-base-300/50 text-xs font-medium text-base-content/80 overflow-x-auto">
-              <span className="text-red-700 font-bold flex items-center gap-1 cursor-pointer hover:underline">
-                <Sparkles className="w-3.5 h-3.5 text-red-600 animate-pulse" /> Phân hệ 70 năm
-              </span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Đào tạo & Khảo thí</span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Nghiên cứu khoa học</span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Cổng cựu sinh viên</span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Đời sống sinh viên</span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Thư viện số</span>
-              <span className="cursor-pointer hover:text-red-600 transition-colors">Hành chính một cửa</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-7 text-sm font-medium">
-          <a href="/" className="hover:text-accent transition-colors py-2 border-b-2 border-transparent hover:border-accent">Trang chủ</a>
-          <a href="/fund" className="hover:text-accent transition-colors py-2 border-b-2 border-transparent hover:border-accent">Quỹ 70 Năm</a>
-          <a href="/tutor" className="hover:text-accent transition-colors py-2 border-b-2 border-transparent hover:border-accent">Gia sư Bách Khoa</a>
-          {currentRole === 'admin' && (
-            <a href="/admin" className="hover:text-accent transition-colors text-accent font-semibold flex items-center gap-1.5 py-2">
-              <Shield className="w-4 h-4" /> Quản trị Admin
-            </a>
-          )}
-        </nav>
-
-        {/* Right Actions & Mock Auth switcher */}
-        <div className="flex items-center space-x-3">
-          {/* Notification Bell */}
-          <button className="btn btn-ghost btn-sm btn-square text-white hover:bg-white/10 relative hidden sm:flex" title="Thông báo hệ thống">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          </button>
-
-          <button
-            onClick={onOpenChat}
-            className="btn btn-sm bg-accent hover:bg-accent/90 text-white border-none gap-2 shadow-md hover:scale-105 transition-all"
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span className="hidden sm:inline">Trợ lý AI</span>
-          </button>
-
-          {/* Role Switcher Dropdown (Mock Auth) */}
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-sm flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/15 px-3 py-1.5 rounded-xl">
-              <img src={currentUser.avatar} alt={currentUser.name} className="w-6 h-6 rounded-full bg-white shadow-inner" />
-              <div className="text-left hidden lg:block">
-                <div className="text-xs font-bold leading-tight">{currentUser.name}</div>
-                <div className="text-[10px] text-blue-200 capitalize">Vai trò: {currentRole}</div>
-              </div>
-            </div>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-2xl w-56 text-neutral border border-base-300 mt-2">
-              <li className="menu-title text-[11px] font-bold text-gray-400 px-3 py-1 tracking-wider">MOCK AUTH (CHUYỂN VAI TRÒ):</li>
-              <li>
-                <button 
-                  className={`flex items-center justify-between rounded-xl py-2.5 ${currentRole === 'guest' ? 'active font-bold bg-base-200 text-primary' : ''}`}
-                  onClick={() => switchRole('guest')}
-                >
-                  <span className="flex items-center gap-2.5"><UserX className="w-4 h-4 text-gray-400" /> Guest (Khách)</span>
-                  {currentRole === 'guest' && <span className="badge badge-sm badge-accent">Active</span>}
-                </button>
-              </li>
-              <li>
-                <button 
-                  className={`flex items-center justify-between rounded-xl py-2.5 ${currentRole === 'student' ? 'active font-bold bg-base-200 text-primary' : ''}`}
-                  onClick={() => switchRole('student')}
-                >
-                  <span className="flex items-center gap-2.5"><UserCheck className="w-4 h-4 text-primary" /> Student (Sinh viên)</span>
-                  {currentRole === 'student' && <span className="badge badge-sm badge-accent">Active</span>}
-                </button>
-              </li>
-              <li>
-                <button 
-                  className={`flex items-center justify-between rounded-xl py-2.5 ${currentRole === 'admin' ? 'active font-bold bg-base-200 text-primary' : ''}`}
-                  onClick={() => switchRole('admin')}
-                >
-                  <span className="flex items-center gap-2.5"><Shield className="w-4 h-4 text-accent" /> Admin (Quản trị)</span>
-                  {currentRole === 'admin' && <span className="badge badge-sm badge-accent">Active</span>}
-                </button>
-              </li>
-            </ul>
+          <div className="hidden md:flex items-center gap-3 text-[11px] text-blue-200 shrink-0">
+            <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Hệ thống vận hành 24/7
+            </span>
+            <span>•</span>
+            <a href="tel:02838651670" className="hover:text-white transition-colors">Hotline: (028) 3865 1670</a>
           </div>
         </div>
       </div>
-    </header>
+
+      {/* Main Header */}
+      <header className="sticky top-0 z-40 bg-[#003366]/95 backdrop-blur-md text-white shadow-md border-b border-white/10 transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-18 sm:h-20">
+            {/* Logo & Brand */}
+            <div className="flex items-center space-x-3">
+              <Link to="/" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 flex items-center justify-center font-black text-lg sm:text-xl text-white shadow-lg shadow-orange-950/40 group-hover:scale-105 transition-transform">
+                  BKA
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-amber-400 transition-colors">
+                      BKA<span className="text-amber-400">.ai</span>
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 font-bold border border-amber-400/30 flex items-center gap-1">
+                      <Sparkles className="w-2.5 h-2.5" /> MVP 2026
+                    </span>
+                  </div>
+                  <p className="text-[10px] sm:text-[11px] text-blue-200 hidden sm:block tracking-wide font-normal">
+                    Trường ĐH Bách Khoa - ĐHQG TP.HCM (268 Lý Thường Kiệt)
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            {/* Desktop Navigation Links */}
+            <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const active = isActive(link.path);
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`relative px-3.5 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                      active
+                        ? 'bg-white/15 text-white shadow-inner'
+                        : 'text-blue-100 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 ${active ? 'text-amber-400' : 'text-blue-200'}`} />
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold ml-1 ${
+                        active ? 'bg-amber-400 text-slate-900' : 'bg-white/20 text-white'
+                      }`}>
+                        {link.badge}
+                      </span>
+                    )}
+                    {active && (
+                      <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-amber-400 rounded-full"></span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right Actions & Auth Switcher */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {/* Notification Bell Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="btn btn-ghost btn-sm btn-square text-white hover:bg-white/15 relative rounded-xl"
+                  title="Thông báo mới"
+                >
+                  <Bell className="w-4 h-4" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                </button>
+
+                {showNotifications && (
+                  <div 
+                    className="absolute right-0 mt-2 w-80 sm:w-96 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-200 p-3 z-50 animate-in fade-in zoom-in-95 duration-150"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-100 px-2">
+                      <span className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                        <Bell className="w-4 h-4 text-[#003366]" /> Thông báo BKA (MVP)
+                      </span>
+                      <button 
+                        onClick={() => setShowNotifications(false)}
+                        className="text-xs text-slate-400 hover:text-slate-600"
+                      >
+                        Đóng
+                      </button>
+                    </div>
+                    <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
+                      {notifications.map((n) => (
+                        <div key={n.id} className="py-2.5 px-2 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-slate-900 flex items-center gap-1">
+                              {n.hot && <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>}
+                              {n.title}
+                            </span>
+                            <span className="text-[10px] text-slate-400">{n.time}</span>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-1 leading-snug">{n.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* AI Chatbot CTA Button */}
+              <button
+                onClick={onOpenChat}
+                className="btn btn-sm bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-none gap-1.5 shadow-md hover:shadow-orange-500/30 rounded-xl text-xs font-bold transition-transform active:scale-95"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span className="hidden sm:inline">Trợ lý AI</span>
+              </button>
+
+              {/* Role Switcher Dropdown */}
+              <div className="dropdown dropdown-end">
+                <div 
+                  tabIndex={0} 
+                  role="button" 
+                  className="btn btn-ghost btn-sm flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-2.5 sm:px-3 py-1.5 rounded-xl transition-colors"
+                >
+                  <img 
+                    src={currentUser.avatar} 
+                    alt={currentUser.name} 
+                    className="w-6 h-6 rounded-full bg-white shadow-inner shrink-0" 
+                  />
+                  <div className="text-left hidden lg:block">
+                    <div className="text-xs font-bold leading-tight truncate max-w-[110px]">{currentUser.name}</div>
+                    <div className="text-[10px] text-amber-300 font-semibold capitalize">
+                      Vai trò: {currentRole}
+                    </div>
+                  </div>
+                  <ChevronDown className="w-3.5 h-3.5 text-blue-200 hidden lg:block" />
+                </div>
+                <ul 
+                  tabIndex={0} 
+                  className="dropdown-content z-[100] menu p-2 shadow-2xl bg-white rounded-2xl w-64 text-slate-800 border border-slate-200 mt-2 space-y-1"
+                >
+                  <li className="menu-title text-[11px] font-bold text-slate-400 px-3 py-1 uppercase tracking-wider">
+                    Giả lập vai trò (Mock Auth):
+                  </li>
+                  <li>
+                    <button 
+                      className={`flex items-center justify-between rounded-xl py-2 px-3 text-xs ${
+                        currentRole === 'guest' ? 'bg-[#003366] text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                      }`}
+                      onClick={() => switchRole('guest')}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <UserX className={`w-4 h-4 ${currentRole === 'guest' ? 'text-white' : 'text-slate-400'}`} />
+                        <span>Khách (Guest)</span>
+                      </span>
+                      {currentRole === 'guest' && <Check className="w-4 h-4 text-amber-400" />}
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      className={`flex items-center justify-between rounded-xl py-2 px-3 text-xs ${
+                        currentRole === 'student' ? 'bg-[#003366] text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                      }`}
+                      onClick={() => switchRole('student')}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <UserCheck className={`w-4 h-4 ${currentRole === 'student' ? 'text-white' : 'text-blue-600'}`} />
+                        <span>Sinh viên (Student)</span>
+                      </span>
+                      {currentRole === 'student' && <Check className="w-4 h-4 text-amber-400" />}
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      className={`flex items-center justify-between rounded-xl py-2 px-3 text-xs ${
+                        currentRole === 'admin' ? 'bg-[#003366] text-white font-bold' : 'hover:bg-slate-100 text-slate-700'
+                      }`}
+                      onClick={() => switchRole('admin')}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <Shield className={`w-4 h-4 ${currentRole === 'admin' ? 'text-white' : 'text-red-600'}`} />
+                        <span>Quản trị viên (Admin)</span>
+                      </span>
+                      {currentRole === 'admin' && <Check className="w-4 h-4 text-amber-400" />}
+                    </button>
+                  </li>
+                  <div className="pt-2 border-t border-slate-100 px-3 text-[10px] text-slate-400 italic">
+                    Chuyển sang "Admin" để mở trang Quản trị Dashboard.
+                  </div>
+                </ul>
+              </div>
+
+              {/* Mobile Menu Toggle Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="btn btn-ghost btn-sm btn-square text-white hover:bg-white/15 md:hidden rounded-xl"
+                aria-label="Toggle Menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer / Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#002244] border-t border-white/10 px-4 pt-3 pb-6 space-y-4 animate-in slide-in-from-top duration-200">
+            {/* User Info Bar in Mobile Menu */}
+            <div className="bg-white/10 p-3 rounded-2xl flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <img src={currentUser.avatar} alt={currentUser.name} className="w-8 h-8 rounded-full bg-white shadow-inner" />
+                <div>
+                  <div className="text-xs font-bold text-white">{currentUser.name}</div>
+                  <div className="text-[11px] text-amber-300 font-medium capitalize">Vai trò: {currentRole}</div>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  onOpenChat();
+                  setMobileMenuOpen(false);
+                }}
+                className="btn btn-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold border-none rounded-lg"
+              >
+                Trợ lý AI
+              </button>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="space-y-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const active = isActive(link.path);
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
+                      active
+                        ? 'bg-amber-500 text-slate-950 font-bold'
+                        : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4" />
+                      <span>{link.name}</span>
+                    </span>
+                    {link.badge && (
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                        active ? 'bg-slate-950 text-white' : 'bg-white/20 text-blue-100'
+                      }`}>
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Role Switcher in Mobile Drawer */}
+            <div className="pt-2 border-t border-white/10 space-y-1.5">
+              <div className="text-[11px] font-bold text-blue-200 px-1 uppercase tracking-wider">
+                Chọn vai trò thử nghiệm:
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {(['guest', 'student', 'admin'] as const).map((role) => (
+                  <button
+                    key={role}
+                    onClick={() => switchRole(role)}
+                    className={`py-2 px-2 rounded-xl text-xs font-bold capitalize transition-all border ${
+                      currentRole === role
+                        ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-md'
+                        : 'bg-white/10 text-white border-white/15 hover:bg-white/20'
+                    }`}
+                  >
+                    {role}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 };
-
